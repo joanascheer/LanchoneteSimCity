@@ -1,6 +1,6 @@
 package produto
 
-class Lanche (
-    private var codigo: Int = 0,
-    ): Produto(codigo = codigo) {
-}
+open class Lanche(
+    override var tipoDeProduto: String,
+    override var codigo: Int = 0,
+) : Produto()

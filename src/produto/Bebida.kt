@@ -1,6 +1,6 @@
 package produto
 
 open class Bebida (
-    private var codigoBebida: Int = 0
-        ) : Produto() {
-}
+    override var tipoDeProduto: String,
+    override var codigo: Int = 0,
+        ) : Produto()

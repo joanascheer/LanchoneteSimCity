@@ -1,8 +1,15 @@
 package produto
 
-open class Produto(
-    private var codigo: Int = 0,
-    private var tipoDeProduto: String = "",
-    private var preco: Double = 0.0,
-) {
+open class Produto {
+    open var tipoDeProduto: String = ""
+    open var codigo: Int = 0
+    open var preco: Double = 0.0
+    open var quantidade: Int = 0
+
+    fun geraCodigo(): Int {
+        codigo += 1
+        return codigo
+    }
+
 }
+
