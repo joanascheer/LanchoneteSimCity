@@ -1,18 +1,19 @@
 package menu
 
-import produto.*
+import produto.Refrigerante
+import produto.Suco
+import produto.XBurger
+import produto.XSalada
 import sistema.Sistema
+import utilities.Utilities.Utilities.boasVindas
 import utilities.Utilities.Utilities.sair
 
 class Menu {
-
     init {
-        println("     Seja bem vindo(a) à   \n" +
-                "*** LANCHONETE SIM CITY ***\n")
+        boasVindas()
 
         val sistema = Sistema()
         menuInicial(sistema)
-
     }
 
     private fun menuInicial(sistema: Sistema) {
@@ -104,7 +105,10 @@ class Menu {
                     "[5] Sair do sistema")
             when(readln().toInt()) {
                 1 -> menuInicial(sistema)
-                2 -> sistema.editarItem()
+                2 -> {
+                    sistema.editarItem()
+                    menuSecundario(sistema)
+                }
                 3 -> {
                     sistema.removeItem()
                     menuSecundario(sistema)

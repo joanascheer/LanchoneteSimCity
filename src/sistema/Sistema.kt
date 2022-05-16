@@ -82,8 +82,6 @@ class Sistema {
 
         if (codigo in carrinhoDeCompras) {
 
-            //var novoProduto = Produto()
-
             println("Que produto deseja escolher no lugar?\n" +
                     "[1] X-Burger\n" +
                     "[2] X-Salada\n" +
@@ -119,16 +117,8 @@ class Sistema {
 
             }
 
-
-
             println("*********************************************************")
             mostraCarrinhoDeCompras()
-
-//
-//            carrinhoDeCompras.forEach { (codigo, produto) ->
-//                carrinhoDeCompras.replace(codigo, produto, novoProduto)
-//
-//            }
 
         }
     }

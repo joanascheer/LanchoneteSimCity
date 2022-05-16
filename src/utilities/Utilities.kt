@@ -14,5 +14,9 @@ class Utilities {
             exitProcess(0)
         }
 
+        fun boasVindas() {
+            println("     Seja bem vindo(a) à   \n" +
+                    "*** LANCHONETE SIM CITY ***\n")
+        }
     }
 }
