@@ -4,7 +4,7 @@ import produto.*
 import utilities.Utilities.Utilities.sair
 import utilities.Utilities.Utilities.sucesso
 
-class Sistema() {
+class Sistema {
     private val carrinhoDeCompras = mutableMapOf<Int, Produto>()
 
     private var codigo = 100
@@ -76,15 +76,14 @@ class Sistema() {
         }
     }
 
-    fun editarItem(produto: Produto) {
+    fun editarItem() {
         println("Digite o código do produto que deseja alterar")
         val codigo = readln().toInt()
 
         if (codigo in carrinhoDeCompras) {
-            var novoProduto = Produto()
-            carrinhoDeCompras.forEach { (codigo, produto) ->
-                carrinhoDeCompras.replace(codigo, produto, novoProduto)
-            }
+
+            //var novoProduto = Produto()
+
             println("Que produto deseja escolher no lugar?\n" +
                     "[1] X-Burger\n" +
                     "[2] X-Salada\n" +
@@ -93,21 +92,43 @@ class Sistema() {
                     "[5] Desistir da compra")
             when (readln().toInt()) {
                 1 -> {
-                    novoProduto = XBurger()
-                    novoProduto.criaXBurger(Sistema())
+                    val novoProduto = XBurger()
+                    novoProduto.pegaQuantidadeXBurger()
+                    carrinhoDeCompras[codigo] = novoProduto
+                    mostraCarrinhoDeCompras()
                 }
                 2 -> {
-                    novoProduto = XSalada()
-
+                    val novoProduto = XSalada()
+                    novoProduto.pegaQuantidadeXSalada()
+                    carrinhoDeCompras[codigo] = novoProduto
+                    mostraCarrinhoDeCompras()
                 }
                 3 -> {
-                    novoProduto = Refrigerante()
+                    val novoProduto = Refrigerante()
+                    novoProduto.pegaQuantidadeRefrigerante()
+                    carrinhoDeCompras[codigo] = novoProduto
+                    mostraCarrinhoDeCompras()
                 }
                 4 -> {
-                    novoProduto = Suco()
+                    val novoProduto = Suco()
+                    novoProduto.pegaQuantidadeSuco()
+                    carrinhoDeCompras[codigo] = novoProduto
+                    mostraCarrinhoDeCompras()
                 }
                 5 -> sair()
+
             }
+
+
+
+            println("*********************************************************")
+            mostraCarrinhoDeCompras()
+
+//
+//            carrinhoDeCompras.forEach { (codigo, produto) ->
+//                carrinhoDeCompras.replace(codigo, produto, novoProduto)
+//
+//            }
 
         }
     }

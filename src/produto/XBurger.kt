@@ -3,7 +3,7 @@ package produto
 import sistema.Sistema
 
 class XBurger(
-    override var tipoDeProduto: String = "X-burguer",
+    override var tipoDeProduto: String = "X-Burguer",
     override var codigo: Int = 0,
     override var preco: Double = 10.0,
     override var quantidade: Int = 0,
@@ -15,17 +15,11 @@ class XBurger(
         sistema.adicionaProdutoCarrinho(xBurger)
     }
 
-    private fun pegaQuantidadeXBurger(): Int {
+    fun pegaQuantidadeXBurger(): Int {
         println("Quantos $tipoDeProduto você deseja comprar?")
         quantidade = readln().toInt()
         return quantidade
     }
-
-    private fun calculaTotalXBurger(xBurger: XBurger): Double {
-        println("Até o momento,")
-        return quantidade * preco
-    }
-
 
 }
 

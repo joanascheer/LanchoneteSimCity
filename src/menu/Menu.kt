@@ -1,7 +1,6 @@
 package menu
 
-import produto.Produto
-import produto.XBurger
+import produto.*
 import sistema.Sistema
 import utilities.Utilities.Utilities.sair
 
@@ -24,7 +23,7 @@ class Menu {
                     "[3] Desejo sair do sistema")
             when(readln().toInt()) {
                 1 -> menuLanche(sistema)
-                2 -> {}
+                2 -> menuBebida(sistema)
                 3 -> sair()
                 else -> throw NumberFormatException()
             }
@@ -37,7 +36,6 @@ class Menu {
         }
 
     }
-
     private fun menuLanche(sistema: Sistema) {
 
         try {
@@ -51,7 +49,11 @@ class Menu {
                     xBurger.criaXBurger(sistema)
                     menuSecundario(sistema)
                 }
-                2 -> {}
+                2 -> {
+                    val xSalada = XSalada()
+                    xSalada.criaXSalada(sistema)
+                    menuSecundario(sistema)
+                }
                 3 -> sair()
                 else -> throw NumberFormatException()
             }
@@ -64,7 +66,34 @@ class Menu {
         }
 
     }
-
+    private fun menuBebida(sistema: Sistema) {
+        try {
+            println("Que bebida deseja comprar?\n" +
+                    "[1] Refrigerante R$8.0\n" +
+                    "[2] Suco R$6.0\n" +
+                    "[3] Sair do sistema\n")
+            when(readln().toInt()) {
+                1 -> {
+                    val refrigerante = Refrigerante()
+                    refrigerante.criaRefrigerante(sistema)
+                    menuSecundario(sistema)
+                }
+                2 -> {
+                    val suco = Suco()
+                    suco.criaSuco(sistema)
+                    menuSecundario(sistema)
+                }
+                3 -> sair()
+                else -> throw NumberFormatException()
+            }
+        } catch (e: NumberFormatException) {
+            println("Opção inválida! Tente novamente.")
+            menuLanche(sistema)
+        } catch (e: IllegalArgumentException) {
+            println("Formato inválido, para escolher o item, você deve informar o número dele.")
+            menuLanche(sistema)
+        }
+    }
     private fun menuSecundario(sistema: Sistema) {
         try {
             println("O que deseja fazer agora?\n" +
@@ -75,7 +104,7 @@ class Menu {
                     "[5] Sair do sistema")
             when(readln().toInt()) {
                 1 -> menuInicial(sistema)
-                2 -> sistema.editarItem(Produto())
+                2 -> sistema.editarItem()
                 3 -> {
                     sistema.removeItem()
                     menuSecundario(sistema)
