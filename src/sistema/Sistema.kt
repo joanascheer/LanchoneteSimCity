@@ -1,0 +1,4 @@
+package sistema
+
+class Sistema {
+}
