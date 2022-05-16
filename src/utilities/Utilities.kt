@@ -1,5 +1,6 @@
 package utilities
 
+import sistema.Sistema
 import kotlin.system.exitProcess
 
 class Utilities {
@@ -14,6 +15,6 @@ class Utilities {
             exitProcess(0)
         }
 
-
+        val sistema = Sistema()
     }
 }

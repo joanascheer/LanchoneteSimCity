@@ -1,9 +1,10 @@
 package sistema
 
 import produto.*
+import utilities.Utilities.Utilities.sair
+import utilities.Utilities.Utilities.sucesso
 
 class Sistema() {
-    private val listaProdutos = ArrayList<Produto>()
     private val carrinhoDeCompras = mutableMapOf<Int, Produto>()
 
     private var codigo = 100
@@ -29,7 +30,7 @@ class Sistema() {
                         "Tipo de produto: ${produto.tipoDeProduto}\n" +
                         "Valor unitário: ${produto.preco}\n" +
                         "Quantidade: ${produto.quantidade}\n" +
-                        "Valor total dos produtos escolhidos: ${calcula(produto.quantidade,produto.preco)}")
+                        "Valor total dos produtos escolhidos: ${calcula(produto.quantidade, produto.preco)}")
             }
         }
         calculaValorTotal()
@@ -39,7 +40,7 @@ class Sistema() {
         return preco * quantidade
     }
 
-    private fun calculaValorTotal(): Double {
+    fun calculaValorTotal(): Double {
         var totalFinal = 0.0
         carrinhoDeCompras.forEach { (_, produto) ->
             totalFinal += calcula(produto.quantidade, produto.preco)
@@ -50,12 +51,17 @@ class Sistema() {
         return totalFinal
     }
 
-//    fun calculaTroco() {
-//        println("Qual o valor em dinheiro você vai usar para pagar sua compra?")
-//        val valorInformado = readln().toDouble()
-//        val troco = valorInformado - totalFinal
-//        println("Devolvendo $troco de troco. Obrigado(a) pela compra!")
-//    }
+    fun calculaTroco(totalFinal: Double) {
+        println("Qual o valor em dinheiro você vai usar para pagar sua compra?")
+        val valorInformado = readln().toDouble()
+
+        if (valorInformado < totalFinal) {
+            println("Este valor não é o suficiente para pagar as suas compras.")
+            calculaTroco(totalFinal)
+        }
+        val troco = valorInformado - totalFinal
+        println("Devolvendo $troco de troco. Obrigado(a) pela compra!")
+    }
 
     fun removeItem() {
         println("Digite o código do produto que deseja excluir do carrinho")
@@ -63,8 +69,46 @@ class Sistema() {
 
         if (codigo in carrinhoDeCompras) {
             carrinhoDeCompras.remove(codigo)
+            sucesso()
+            mostraCarrinhoDeCompras()
         } else {
             println("Não existe um produto com este código no seu carrinho.\n")
+        }
+    }
+
+    fun editarItem(produto: Produto) {
+        println("Digite o código do produto que deseja alterar")
+        val codigo = readln().toInt()
+
+        if (codigo in carrinhoDeCompras) {
+            var novoProduto = Produto()
+            carrinhoDeCompras.forEach { (codigo, produto) ->
+                carrinhoDeCompras.replace(codigo, produto, novoProduto)
+            }
+            println("Que produto deseja escolher no lugar?\n" +
+                    "[1] X-Burger\n" +
+                    "[2] X-Salada\n" +
+                    "[3] Refrigerante\n" +
+                    "[4] Suco\n" +
+                    "[5] Desistir da compra")
+            when (readln().toInt()) {
+                1 -> {
+                    novoProduto = XBurger()
+                    novoProduto.criaXBurger(Sistema())
+                }
+                2 -> {
+                    novoProduto = XSalada()
+
+                }
+                3 -> {
+                    novoProduto = Refrigerante()
+                }
+                4 -> {
+                    novoProduto = Suco()
+                }
+                5 -> sair()
+            }
+
         }
     }
 

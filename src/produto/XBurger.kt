@@ -5,7 +5,7 @@ import sistema.Sistema
 class XBurger(
     override var tipoDeProduto: String = "X-burguer",
     override var codigo: Int = 0,
-    override var preco: Double = 12.0,
+    override var preco: Double = 10.0,
     override var quantidade: Int = 0,
 ) : Lanche(tipoDeProduto, codigo) {
 

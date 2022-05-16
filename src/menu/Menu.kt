@@ -1,5 +1,6 @@
 package menu
 
+import produto.Produto
 import produto.XBurger
 import sistema.Sistema
 import utilities.Utilities.Utilities.sair
@@ -48,7 +49,6 @@ class Menu {
                 1 -> {
                     val xBurger = XBurger()
                     xBurger.criaXBurger(sistema)
-                    //sistema.calculaTotal(xBurger)
                     menuSecundario(sistema)
                 }
                 2 -> {}
@@ -75,8 +75,11 @@ class Menu {
                     "[5] Sair do sistema")
             when(readln().toInt()) {
                 1 -> menuInicial(sistema)
-                2 -> {}
-                3 -> sistema.removeItem()
+                2 -> sistema.editarItem(Produto())
+                3 -> {
+                    sistema.removeItem()
+                    menuSecundario(sistema)
+                }
                 4 -> menuPagamento(sistema)
                 5 -> sair()
                 else -> throw NumberFormatException()
@@ -88,7 +91,6 @@ class Menu {
             println("")
         }
     }
-
     private fun menuPagamento(sistema: Sistema) {
         println("Como deseja realizar o pagamento?\n" +
                 "[1] Cartão (débito, crédito ou vale refeição\n" +
@@ -100,7 +102,7 @@ class Menu {
                 menuNovaCompra(sistema)
             }
             2 -> {
-                sistema.calculaTroco()
+                sistema.calculaTroco(sistema.calculaValorTotal())
                 menuNovaCompra(sistema)
             }
             3 -> sair()
@@ -114,6 +116,5 @@ class Menu {
             2 -> sair()
         }
     }
-
 
 }
