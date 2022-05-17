@@ -1,6 +1,7 @@
 package produto
 
 import sistema.Sistema
+import utilities.Utilities.Utilities.opcaoInvalida
 
 class Refrigerante (
     override var codigo: Int = 0,
@@ -9,15 +10,27 @@ class Refrigerante (
     override var quantidade: Int = 0,
     ) : Bebida(tipoDeProduto,codigo) {
 
-    fun criaRefrigerante(sistema: Sistema) {
+    internal fun criaRefrigerante(sistema: Sistema) {
+
         val refrigerante = Refrigerante()
         refrigerante.pegaQuantidadeRefrigerante()
         sistema.adicionaProdutoCarrinho(refrigerante)
     }
 
     internal fun pegaQuantidadeRefrigerante(): Int {
-        println("Quantos ${tipoDeProduto}s você deseja comprar?")
-        quantidade = readln().toInt()
+        try {
+            println("Quantos ${tipoDeProduto}s você deseja comprar?")
+            quantidade = readln().toInt()
+            if (quantidade <= 0) {
+                throw IllegalArgumentException()
+            } else {
+                return quantidade
+            }
+
+        } catch (e: Exception) {
+            opcaoInvalida()
+            pegaQuantidadeRefrigerante()
+        }
         return quantidade
     }
 

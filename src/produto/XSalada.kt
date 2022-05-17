@@ -1,6 +1,7 @@
 package produto
 
 import sistema.Sistema
+import utilities.Utilities
 
 class XSalada(
     override var codigo: Int = 0,
@@ -9,15 +10,26 @@ class XSalada(
     override var quantidade: Int = 0,
 ) : Lanche(tipoDeProduto, codigo) {
 
-    fun criaXSalada(sistema: Sistema) {
+    internal fun criaXSalada(sistema: Sistema) {
         val xSalada = XSalada()
         xSalada.pegaQuantidadeXSalada()
         sistema.adicionaProdutoCarrinho(xSalada)
     }
 
     internal fun pegaQuantidadeXSalada(): Int {
-        println("Quantos $tipoDeProduto você deseja comprar?")
-        quantidade = readln().toInt()
+        try {
+            println("Quantos ${tipoDeProduto}s você deseja comprar?")
+            quantidade = readln().toInt()
+            if (quantidade <= 0) {
+                throw IllegalArgumentException()
+            } else {
+                return quantidade
+            }
+
+        } catch (e: Exception) {
+            Utilities.opcaoInvalida()
+            pegaQuantidadeXSalada()
+        }
         return quantidade
     }
 

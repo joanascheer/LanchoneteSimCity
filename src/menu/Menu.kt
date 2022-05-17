@@ -6,6 +6,8 @@ import produto.XBurger
 import produto.XSalada
 import sistema.Sistema
 import utilities.Utilities.Utilities.boasVindas
+import utilities.Utilities.Utilities.formatoInvalido
+import utilities.Utilities.Utilities.opcaoInvalida
 import utilities.Utilities.Utilities.sair
 
 class Menu {
@@ -28,15 +30,18 @@ class Menu {
                 3 -> sair()
                 else -> throw NumberFormatException()
             }
-        } catch (e: NumberFormatException) {
-            println("Opção inválida! Tente novamente.")
+        }
+        catch (e: NumberFormatException) {
+            formatoInvalido()
             menuInicial(sistema)
-        } catch (e: IllegalArgumentException) {
-            println("Formato inválido, para escolher o item, você deve informar o número dele.")
+        }
+        catch (e: IllegalArgumentException) {
+            opcaoInvalida()
             menuInicial(sistema)
         }
 
     }
+
     private fun menuLanche(sistema: Sistema) {
 
         try {
@@ -59,14 +64,12 @@ class Menu {
                 else -> throw NumberFormatException()
             }
         } catch (e: NumberFormatException) {
-            println("Opção inválida! Tente novamente.")
-            menuLanche(sistema)
-        } catch (e: IllegalArgumentException) {
-            println("Formato inválido, para escolher o item, você deve informar o número dele.")
+            opcaoInvalida()
             menuLanche(sistema)
         }
 
     }
+
     private fun menuBebida(sistema: Sistema) {
         try {
             println("Que bebida deseja comprar?\n" +
@@ -95,6 +98,7 @@ class Menu {
             menuLanche(sistema)
         }
     }
+
     private fun menuSecundario(sistema: Sistema) {
         try {
             println("O que deseja fazer agora?\n" +
@@ -113,41 +117,65 @@ class Menu {
                     sistema.removeItem()
                     menuSecundario(sistema)
                 }
-                4 -> menuPagamento(sistema)
+                4 -> {
+                    menuPagamento(sistema)
+                }
                 5 -> sair()
                 else -> throw NumberFormatException()
             }
         } catch (e: NumberFormatException) {
-            println("Opção inválida! Tente novamente.")
+            formatoInvalido()
             menuSecundario(sistema)
         } catch (e: IllegalArgumentException) {
-            println("")
+            opcaoInvalida()
+            menuSecundario(sistema)
         }
     }
+
     private fun menuPagamento(sistema: Sistema) {
-        println("Como deseja realizar o pagamento?\n" +
-                "[1] Cartão (débito, crédito ou vale refeição\n" +
-                "[2] Dinheiro\n" +
-                "[3] Sair do sistema")
-        when(readln().toInt()) {
-            1 -> {
-                println("Compra finalizada com sucesso! Boa refeição.")
-                menuNovaCompra(sistema)
+        try {
+            sistema.mostraCarrinhoDeCompras()
+
+            println("Como deseja realizar o pagamento?\n" +
+                    "[1] Cartão (débito, crédito ou vale refeição\n" +
+                    "[2] Dinheiro\n" +
+                    "[3] Sair do sistema")
+            when(readln().toInt()) {
+                1 -> {
+                    println("Compra finalizada com sucesso! Boa refeição.")
+                    menuNovaCompra(sistema)
+                }
+                2 -> {
+                    sistema.calculaTroco(sistema.calculaValorTotal())
+                    menuNovaCompra(sistema)
+                }
+                3 -> sair()
+                else -> throw NumberFormatException()
             }
-            2 -> {
-                sistema.calculaTroco(sistema.calculaValorTotal())
-                menuNovaCompra(sistema)
-            }
-            3 -> sair()
+        } catch (e: NumberFormatException) {
+            opcaoInvalida()
+            menuPagamento(sistema)
         }
+
     }
+
     private fun menuNovaCompra(sistema: Sistema) {
-        println("Deseja comprar novamente?\n" +
-                "[1] Sim | [2] Não")
-        when(readln().toInt()) {
-            1 -> menuInicial(sistema)
-            2 -> sair()
+        try {
+            println("Deseja comprar novamente?\n" +
+                    "[1] Sim | [2] Não")
+            when(readln().toInt()) {
+                1 -> menuInicial(sistema)
+                2 -> sair()
+                else -> throw NumberFormatException()
+            }
+        } catch (e: NumberFormatException) {
+            formatoInvalido()
+            menuNovaCompra(sistema)
+        } catch (e: IllegalArgumentException) {
+            opcaoInvalida()
+            menuNovaCompra(sistema)
         }
+
     }
 
 }

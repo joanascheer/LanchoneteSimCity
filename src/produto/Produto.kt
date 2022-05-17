@@ -6,10 +6,5 @@ open class Produto {
     open var preco: Double = 0.0
     open var quantidade: Int = 0
 
-    fun geraCodigo(): Int {
-        codigo += 1
-        return codigo
-    }
-
 }
 
