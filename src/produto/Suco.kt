@@ -8,7 +8,7 @@ class Suco(
     override var tipoDeProduto: String = "Suco",
     override var preco: Double = 6.0,
     override var quantidade: Int = 0,
-) : Bebida(tipoDeProduto,codigo) {
+) : Bebida(tipoDeProduto, codigo) {
 
     internal fun criaSuco(sistema: Sistema) {
         val suco = Suco()

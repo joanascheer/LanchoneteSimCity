@@ -174,7 +174,7 @@ class Sistema {
         } catch (e: NumberFormatException) {
             opcaoInvalida()
             editarItem()
-        }catch (e: UnsupportedOperationException) {
+        } catch (e: UnsupportedOperationException) {
             digitarCodigo()
             editarItem()
         }

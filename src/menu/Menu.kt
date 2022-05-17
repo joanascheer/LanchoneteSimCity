@@ -24,18 +24,16 @@ class Menu {
                     "[1] Lanche\n" +
                     "[2] Bebida\n" +
                     "[3] Desejo sair do sistema")
-            when(readln().toInt()) {
+            when (readln().toInt()) {
                 1 -> menuLanche(sistema)
                 2 -> menuBebida(sistema)
                 3 -> sair()
                 else -> throw NumberFormatException()
             }
-        }
-        catch (e: NumberFormatException) {
+        } catch (e: NumberFormatException) {
             formatoInvalido()
             menuInicial(sistema)
-        }
-        catch (e: IllegalArgumentException) {
+        } catch (e: IllegalArgumentException) {
             opcaoInvalida()
             menuInicial(sistema)
         }
@@ -49,7 +47,7 @@ class Menu {
                     "[1] X-Burger R$10.0\n" +
                     "[2] X-Salada R$12.0\n" +
                     "[3] Sair do sistema\n")
-            when(readln().toInt()) {
+            when (readln().toInt()) {
                 1 -> {
                     val xBurger = XBurger()
                     xBurger.criaXBurger(sistema)
@@ -76,7 +74,7 @@ class Menu {
                     "[1] Refrigerante R$8.0\n" +
                     "[2] Suco R$6.0\n" +
                     "[3] Sair do sistema\n")
-            when(readln().toInt()) {
+            when (readln().toInt()) {
                 1 -> {
                     val refrigerante = Refrigerante()
                     refrigerante.criaRefrigerante(sistema)
@@ -107,7 +105,7 @@ class Menu {
                     "[3] Remover item do carrinho de compras\n" +
                     "[4] Encerrar compra\n" +
                     "[5] Sair do sistema")
-            when(readln().toInt()) {
+            when (readln().toInt()) {
                 1 -> menuInicial(sistema)
                 2 -> {
                     sistema.editarItem()
@@ -140,7 +138,7 @@ class Menu {
                     "[1] Cartão (débito, crédito ou vale refeição\n" +
                     "[2] Dinheiro\n" +
                     "[3] Sair do sistema")
-            when(readln().toInt()) {
+            when (readln().toInt()) {
                 1 -> {
                     println("Compra finalizada com sucesso! Boa refeição.")
                     menuNovaCompra(sistema)
@@ -163,7 +161,7 @@ class Menu {
         try {
             println("Deseja comprar novamente?\n" +
                     "[1] Sim | [2] Não")
-            when(readln().toInt()) {
+            when (readln().toInt()) {
                 1 -> menuInicial(sistema)
                 2 -> sair()
                 else -> throw NumberFormatException()
